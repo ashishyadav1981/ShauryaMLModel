@@ -1,0 +1,199 @@
+================================================================================
+                    PATH 2: DROPLET FEATURE EXTRACTION
+                        START HERE FIRST!
+================================================================================
+
+Your Mission:
+  Extract features from your Eulerian CFD field
+  Generate 44,000 training samples for droplet size evolution
+  Get data ready for ML model training (Step 3+)
+
+Time Estimate: 30 minutes total (execution: 2-5 min, documentation: 25 min)
+
+================================================================================
+                            READING ORDER
+================================================================================
+
+1️⃣  THIS FILE (5 min) ← You're here
+    ↓
+2️⃣  EXECUTIVE_SUMMARY.md (5 min)
+    - What you have vs. what you need
+    - The bridge: what Path 2 does
+    - Key concepts: parcels, D² law, features
+    ↓
+3️⃣  QUICK_START_CHECKLIST.md (10 min)
+    - Step-by-step execution checklist
+    - Verification procedures
+    - Troubleshooting quick reference
+    ↓
+4️⃣  PATH_2_COMPLETE_GUIDE.md (15 min optional)
+    - Deep dive into all 4 phases
+    - Physics model explanation
+    - Feature engineering details
+    ↓
+5️⃣  Run the script (2-5 min)
+    python3 path2_feature_extraction.py
+    ↓
+6️⃣  SANDIA_VALIDATION_GUIDE.md (read later)
+    - After model training
+    - Validation against experimental data
+
+================================================================================
+                          FILES IN THIS PACKAGE
+================================================================================
+
+📄 DOCUMENTATION (Read in order)
+   1. START_HERE.txt                 ← You're reading this
+   2. EXECUTIVE_SUMMARY.md           ← Overview and concepts
+   3. QUICK_START_CHECKLIST.md       ← Execution steps
+   4. PATH_2_COMPLETE_GUIDE.md       ← Detailed explanation
+   5. SANDIA_VALIDATION_GUIDE.md     ← For later (model validation)
+
+💻 EXECUTABLE
+   → path2_feature_extraction.py     ← RUN THIS (generates training data)
+
+📊 EXPECTED OUTPUTS (after running script)
+   → droplet_features.csv            (44,000 samples × 10 features)
+   → droplet_targets.csv             (44,000 samples × 3 targets)
+   → droplet_trajectories_full.csv   (complete data + metadata)
+   → parcel_metadata.csv             (spatial reference data)
+   → 01_Droplet_Evolution.png        (visualization)
+   → 02_Temperature_Effects.png      (visualization)
+   → 03_Feature_Distributions.png    (visualization)
+
+================================================================================
+                            QUICK SUMMARY
+================================================================================
+
+What you're doing:
+  Taking your Eulerian CFD field (single snapshot, 178K grid points)
+  Creating virtual droplet parcels (~1,000 spatial regions)
+  Extracting field properties from each parcel
+  Simulating droplet evolution using D² law physics
+  Generating 44,000 training samples for ML
+
+Your inputs:
+  → Eulerian_1_-_eulerian1_1.csv (your CFD file)
+
+Your outputs:
+  → droplet_features.csv (features for ML model)
+  → droplet_targets.csv (targets for ML model)
+  → Visualizations + reference data
+
+What makes it work:
+  1. Spatial variation: Different parcels have different T, p, species, velocity
+  2. Size variation: Multiple initial diameters (10, 20, 50, 100 μm)
+  3. Temporal variation: Multiple time steps (0-10 ms)
+  4. Physics-based: D² law ensures targets are physically realistic
+
+Result:
+  44,000 diverse training samples from 1 CFD snapshot
+  Ready for neural network training (Step 3+)
+
+================================================================================
+                        LET'S GET STARTED
+================================================================================
+
+👉 Next Step: Read EXECUTIVE_SUMMARY.md (5 minutes)
+   This will give you the conceptual foundation
+
+Then: Follow QUICK_START_CHECKLIST.md (10 minutes)
+   This will walk you through execution
+
+Then: Run the script (2-5 minutes)
+   python3 path2_feature_extraction.py
+
+Then: Verify outputs (5 minutes)
+   Check that files exist and data looks good
+
+Then: Proceed to Step 3 - Normalization (using the generated CSV files)
+
+================================================================================
+                         KEY CONCEPTS
+================================================================================
+
+🔹 EULERIAN FIELD
+   Grid-based representation of flow properties at spatial points
+   Your CFD output: temperature, pressure, species at each grid location
+
+🔹 VIRTUAL PARCELS
+   Small regions of the domain (~1,000 total)
+   Each region = one "parcel" experiencing local field conditions
+   Properties averaged from grid points in that region
+
+🔹 DROPLET EVOLUTION
+   How droplet diameter changes over time
+   Physics-based using D² law: d² = d₀² - K·t
+   K (evaporation constant) depends on local T, O2, fuel, velocity
+
+🔹 TRAINING SAMPLES
+   Each sample = (features, target)
+   Features: droplet size, time, T, p, ρ, O2, fuel, velocity, position
+   Targets: current diameter, evaporation time, emissions proxy
+
+🔹 DATA READY FOR ML
+   44,000 diverse samples with good feature coverage
+   No preprocessing needed (use directly for Step 3: Normalization)
+   Validated: no NaN, no Inf, physically reasonable ranges
+
+================================================================================
+                      SUCCESS CHECKLIST
+================================================================================
+
+Before running:
+  ☐ Your CFD file is in the working directory
+  ☐ Python 3 is installed
+  ☐ pandas, numpy, matplotlib available
+
+After running:
+  ☐ Script completes without errors
+  ☐ 4 CSV files are generated (44,000 rows each)
+  ☐ 3 PNG visualizations are created
+  ☐ Feature ranges look reasonable (T ~775-805 K, diameter ~0-100 μm)
+  ☐ No NaN or Inf values in data
+
+If all checked: Proceed to Step 3 (Normalization) ✓
+
+================================================================================
+                       NEED HELP?
+================================================================================
+
+Question                          → Answer Location
+─────────────────────────────────────────────────────
+What is a virtual parcel?         → PATH_2_COMPLETE_GUIDE.md, Phase 2
+How does D² law work?             → PATH_2_COMPLETE_GUIDE.md, Phase 3
+What are the 10 features?         → EXECUTIVE_SUMMARY.md, Feature table
+Why 44,000 samples?               → QUICK_START_CHECKLIST.md, Phase 2
+How to verify output?             → QUICK_START_CHECKLIST.md, Phase 3
+Script is slow/memory error?      → PATH_2_COMPLETE_GUIDE.md, Troubleshooting
+What about Sandia validation?     → SANDIA_VALIDATION_GUIDE.md
+Next steps after extraction?      → EXECUTIVE_SUMMARY.md, Timeline
+
+================================================================================
+                        ESTIMATED TIME
+================================================================================
+
+Reading documentation:    20-25 minutes
+Running the script:       2-5 minutes (mostly waiting)
+Verifying output:         5 minutes
+Reviewing visualizations: 5 minutes
+─────────────────────────────────────────────────────
+TOTAL:                    35-45 minutes
+
+Then you're ready for:    Step 3 - Normalization
+
+================================================================================
+                     YOU'RE READY! LET'S GO!
+================================================================================
+
+→ Open and read: EXECUTIVE_SUMMARY.md
+→ Follow: QUICK_START_CHECKLIST.md
+→ Execute: python3 path2_feature_extraction.py
+→ Verify: Check generated files
+→ Next: Step 3 - Normalization
+
+Questions? Check the document reference table above ⬆️
+
+Good luck! 🚀
+
+================================================================================

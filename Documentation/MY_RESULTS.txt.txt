@@ -1,0 +1,55 @@
+================================================================================
+STEP 7: MODEL EVALUATION REPORT
+================================================================================
+
+NORMALISED SPACE METRICS (0-1 range)
+────────────────────────────────────────────────────────────────────────────────
+Mean Squared Error (MSE)     : 0.000332
+Mean Absolute Error (MAE)    : 0.014332
+Root Mean Squared Error (RMSE): 0.018220
+R² Score (mean)              : 0.997856
+
+REAL SPACE METRICS (Physical Units)
+────────────────────────────────────────────────────────────────────────────────
+Target                         MAE             RMSE            R²        
+────────────────────────────────────────────────────────────────────────────────
+Diameter (μm)                  1.9931          2.3335          0.9956    
+Evap Time (ms)                 46.5343         57.3118         0.9988    
+Emissions (ppm)                19243.7319      23685.1011      0.9992    
+
+PERCENTAGE ERRORS (Real Space)
+────────────────────────────────────────────────────────────────────────────────
+Target                         % Error        
+────────────────────────────────────────────────────────────────────────────────
+Diameter (μm)                  4.50           %
+Evap Time (ms)                 3.56           %
+Emissions (ppm)                2.96           %
+
+DATA SAMPLE STATISTICS
+────────────────────────────────────────────────────────────────────────────────
+Test set size: 119 samples
+Features: 10
+Targets: 3
+
+TARGET VALUE RANGES (Real Space)
+────────────────────────────────────────────────────────────────────────────────
+Target                         Min             Max             Mean           
+────────────────────────────────────────────────────────────────────────────────
+Diameter (μm)                  8.6784          100.0000        44.3288        
+Evap Time (ms)                 40.4883         4051.6419       1306.8374      
+Emissions (ppm)                15254.9897      2025565.7306    650880.8845    
+
+INTERPRETATION GUIDE
+────────────────────────────────────────────────────────────────────────────────
+✓ R² close to 1.0  : Model explains 100% of variance (excellent)
+✓ R² > 0.8         : Model is good
+⚠ R² 0.5-0.8       : Model is moderate
+✗ R² < 0.5         : Model needs improvement
+
+NEXT STEPS
+────────────────────────────────────────────────────────────────────────────────
+1. Check evaluation_plots.png for visual inspection
+2. If R² < 0.7: Re-train with larger model or more epochs
+3. If overfitting visible in training_history.png: increase dropout
+4. Once satisfied, prepare for Sandia Flame D validation
+================================================================================
