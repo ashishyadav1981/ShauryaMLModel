@@ -83,7 +83,7 @@ python step7_evaluate.py
 
 ## Author
 
-Shaurya — [add contact/LinkedIn/GitHub profile link here]
+Shaurya Yadav — [add contact/LinkedIn/GitHub profile link here]
 
 ## License
 
