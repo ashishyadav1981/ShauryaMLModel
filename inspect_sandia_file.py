@@ -97,7 +97,7 @@ print("─" * 80)
 
 try:
     df = pd.read_csv(test_file, 
-                     delim_whitespace=True,
+                     sep=r'\s+',
                      comment='#',
                      engine='python',
                      na_values=['NaN', 'nan', '-999'])

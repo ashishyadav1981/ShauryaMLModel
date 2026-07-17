@@ -20,7 +20,7 @@ print("=" * 80)
 print("\n[1/4] Locating Sandia data...")
 
 # Direct path based on your file structure
-sandia_path = Path.cwd() / "pmCDEF" / "pmCDEFarchives" / "pmD.stat"
+sandia_path = Path.cwd() / "pmCDEF" / "pmD.stat"
 
 print(f"Looking for: {sandia_path}")
 
@@ -97,7 +97,13 @@ for yave_file in yave_files:
         )
         
         df['source_file'] = yave_file.stem
-        axial_id = int(yave_file.stem[1:])
+        stem_suffix = yave_file.stem[1:]  # e.g. "01", "075", "CL"
+
+        if stem_suffix.upper() == "CL":
+            axial_id = 0.0  # centerline
+        else:
+            axial_id = float(stem_suffix)
+
         df['axial_location'] = axial_id
         
         all_data.append(df)
@@ -117,6 +123,11 @@ if not all_data:
 print("\n[4/4] Combining and saving data...")
 
 combined = pd.concat(all_data, ignore_index=True)
+
+# Force numeric types on measurement columns (guards against stray parsing artifacts)
+numeric_cols = [c for c in column_names if c != 'source_file']
+for col in numeric_cols:
+    combined[col] = pd.to_numeric(combined[col], errors='coerce')
 
 output_file = "sandia_flame_d_raw.csv"
 combined.to_csv(output_file, index=False)

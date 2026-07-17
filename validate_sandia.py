@@ -59,6 +59,16 @@ except FileNotFoundError:
     print("   Run: python3 sandia_data_mapper_FINAL.py first")
     exit()
 
+# Check for NaN rows before scaling/prediction
+nan_rows = sandia_prep.isna().any(axis=1).sum()
+if nan_rows > 0:
+    print(f"  ⚠️  Dropping {nan_rows} rows with missing values")
+    sandia_prep = sandia_prep.dropna().reset_index(drop=True)
+    X_sandia = sandia_prep.values
+    n_features = X_sandia.shape[1]
+    n_samples = X_sandia.shape[0]
+    print(f"  ✓ Remaining: {n_samples} measurements")
+
 # ─────────────────────────────────────────────
 # 2. Load model and scalers
 # ─────────────────────────────────────────────
@@ -211,7 +221,7 @@ report_text = "\n".join(report)
 print(report_text)
 
 # Save report
-with open("sandia_validation_report.txt", "w") as f:
+with open("sandia_validation_report.txt", "w", encoding="utf-8") as f:
     f.write(report_text)
 
 print("\n✓ Report saved: sandia_validation_report.txt")

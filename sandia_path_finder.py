@@ -25,8 +25,8 @@ possible_locations = [
     
     # Downloads folder
     Path.home() / "Downloads" / "pmCDEF",
-    Path.home() / "Downloads" / "ShauryaMLModel" / "pmCDEF",
-    Path.home() / "Downloads" / "pmCDEF" / "pmD.stat",
+    Path.home() / "Downloads" / "ShauryaMLModel" / "pmCDEF"/ "pmCDEFarchives" /"pmD.stat",
+    Path.home() / "Downloads" / "pmCDEF" / "pmCDEFarchives" /"pmD.stat",
     
     # Desktop
     Path.home() / "Desktop" / "pmCDEF",
